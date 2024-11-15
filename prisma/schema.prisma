@@ -1,0 +1,33 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+model CoverageLog {
+  id        String   @id @default(uuid())
+  projectID String   @map("project_id")
+  sha       String
+  size      Int
+  timing    String
+  hit       String
+  // 通用
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp(3)
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp(3)
+
+  @@map("analytics_coverage_log")
+}
+
+// 新版的map来源只有pipeline中upload上报
+model CoverageMap {
+  id        String @id @default(cuid())
+  projectID String @map("project_id")
+  sha       String @map("sha")
+  map       String
+
+  @@map("analytics_coverage_map")
+}
