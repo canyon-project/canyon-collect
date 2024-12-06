@@ -9,7 +9,7 @@ import { CoveragediskEntity } from "./apps/collect/entity/coveragedisk.entity";
   imports: [
     TypeOrmModule.forRoot({
       type: "sqlite",
-      database: "db/sql",
+      database: "/tmp/sql",
       synchronize: true,
       entities: [CoveragediskEntity],
     }),
